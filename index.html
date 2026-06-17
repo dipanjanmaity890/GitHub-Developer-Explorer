@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Developer Explorer</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>GitHub Developer Explorer</h1>
+    <span id="rateInfo"></span>
+  </header>
+
+  <main>
+    <section class="search-box">
+      <input type="text" id="searchInput" placeholder="Enter GitHub username..." />
+      <button onclick="searchUser()">Search</button>
+    </section>
+
+    <div id="errorMsg" class="error"   style="display:none;"></div>
+    <div id="loading"  class="loading" style="display:none;">Loading...</div>
+
+    <section id="profileSection" style="display:none;">
+
+      <div class="profile-card">
+        <img id="avatar" src="" alt="avatar" />
+        <div>
+          <h2 id="name"></h2>
+          <p id="login"></p>
+          <p id="bio"></p>
+          <p id="location"></p>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat"><span id="statRepos"></span><label>Repos</label></div>
+        <div class="stat"><span id="statFollowers"></span><label>Followers</label></div>
+        <div class="stat"><span id="statFollowing"></span><label>Following</label></div>
+        <div class="stat"><span id="statStars"></span><label>Total Stars</label></div>
+      </div>
+
+      <div class="content-grid">
+
+        <div class="panel">
+          <h3>Language Breakdown</h3>
+          <canvas id="langChart"></canvas>
+        </div>
+
+        <div class="panel">
+          <div class="repo-controls">
+            <h3>Repositories <span id="repoCount"></span></h3>
+            <div>
+              <label>Sort:
+                <select id="sortSelect" onchange="renderRepos()">
+                  <option value="stars">Stars</option>
+                  <option value="forks">Forks</option>
+                  <option value="updated">Updated</option>
+                  <option value="name">Name</option>
+                </select>
+              </label>
+              <label>Filter:
+                <input type="text" id="filterInput" oninput="renderRepos()" placeholder="name or language..." />
+              </label>
+            </div>
+          </div>
+          <div id="repoList"></div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Chart.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+
+  <!-- JS files — load order matters! -->
+  <script src="js/state.js"></script>    <!-- Person 1: global variables  -->
+  <script src="js/helpers.js"></script>  <!-- Person 2: utility functions -->
+  <script src="js/api.js"></script>      <!-- Person 3: fetch / API calls -->
+  <script src="js/profile.js"></script>  <!-- Person 4: profile & stats   -->
+  <script src="js/repos.js"></script>    <!-- Person 5: chart & repo list -->
+
+</body>
+</html>
