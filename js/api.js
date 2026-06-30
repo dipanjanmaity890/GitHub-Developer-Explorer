@@ -11,6 +11,9 @@ function fetchProfile(username) {
     .then(function (res) {
       updateRateLimit(res);
       if (!res.ok) {
+        if (res.status === 403) {
+          throw new Error("GitHub API rate limit (60 requests/hour) exceeded. Please try again later.");
+        }
         throw new Error(
           res.status === 404 ? "User not found." : "API error: " + res.status
         );
@@ -29,6 +32,9 @@ function fetchRepos(username) {
     .then(function (res) {
       updateRateLimit(res);
       if (!res.ok) {
+        if (res.status === 403) {
+          throw new Error("GitHub API rate limit (60 requests/hour) exceeded. Please try again later.");
+        }
         throw new Error("Failed to fetch repositories.");
       }
       return res.json();
