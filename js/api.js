@@ -7,7 +7,10 @@
 // Returns a Promise that resolves to the profile object.
 // Endpoint: GET /users/{username}
 function fetchProfile(username) {
-  return fetch("https://api.github.com/users/" + username)
+  const token = document.getElementById("githubToken")?.value.trim();
+  const options = token ? { headers: { "Authorization": `Bearer ${token}` } } : {};
+
+  return fetch("https://api.github.com/users/" + username, options)
     .then(function (res) {
       updateRateLimit(res);
       if (!res.ok) {
@@ -26,8 +29,12 @@ function fetchProfile(username) {
 // Returns a Promise that resolves to an array of repo objects.
 // Endpoint: GET /users/{username}/repos
 function fetchRepos(username) {
+  const token = document.getElementById("githubToken")?.value.trim();
+  const options = token ? { headers: { "Authorization": `Bearer ${token}` } } : {};
+
   return fetch(
-    "https://api.github.com/users/" + username + "/repos?per_page=100&sort=pushed"
+    "https://api.github.com/users/" + username + "/repos?per_page=100&sort=pushed",
+    options
   )
     .then(function (res) {
       updateRateLimit(res);

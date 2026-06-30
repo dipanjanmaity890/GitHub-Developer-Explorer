@@ -42,7 +42,8 @@ main {
   margin-bottom: 24px;
 }
 
-.search-box input {
+.search-box input[type="text"],
+.search-box input[type="password"] {
   flex: 1;
   padding: 10px 14px;
   background: #161b22;

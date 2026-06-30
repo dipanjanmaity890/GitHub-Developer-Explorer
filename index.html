@@ -16,6 +16,7 @@
   <main>
     <section class="search-box">
       <input type="text" id="searchInput" placeholder="Enter GitHub username..." />
+      <input type="password" id="githubToken" placeholder="Optional GitHub PAT" title="Paste a Personal Access Token here to bypass the 60 requests/hour limit" onchange="localStorage.setItem('gh_token', this.value)" />
       <button onclick="searchUser()">Search</button>
     </section>
 
@@ -81,6 +82,11 @@
   <script src="js/api.js"></script>      <!-- Person 3: fetch / API calls -->
   <script src="js/profile.js"></script>  <!-- Person 4: profile & stats   -->
   <script src="js/repos.js"></script>    <!-- Person 5: chart & repo list -->
+
+  <script>
+    const savedToken = localStorage.getItem('gh_token');
+    if (savedToken) document.getElementById('githubToken').value = savedToken;
+  </script>
 
 </body>
 </html>
